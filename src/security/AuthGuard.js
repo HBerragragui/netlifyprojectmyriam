@@ -1,13 +1,13 @@
-﻿import {useAuth0} from "@auth0/auth0-vue";
-function authGuard(to, from, next) {
-    const auth0 = useAuth0();
-    const isAuthenticated = auth0.isAuthenticated.value;
-    if(isAuthenticated){
-        next();
-    }else{
-        auth0.loginWithRedirect();
-        next("/");
-    }
-}
+import { useRouter } from "vue-router";
 
-export default authGuard;
+export function authGuard(to, from, next) {
+    const auth0 = useAuth0();
+
+    const isAuthenticated = auth0.isAuthenticated;
+    if (isAuthenticated) {
+        next();
+    } else {
+        next('/');
+    }
+
+}

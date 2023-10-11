@@ -1,37 +1,52 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import Profile from '../views/Profile.vue';
-import Films from '../views/Films.vue';
-import DetailFilm from '../views/DetailFilm.vue';
-import Favorite from '../views/Favorite.vue';
-import AuthGuard from "@/security/AuthGuard";
+import { createRouter, createWebHistory } from 'vue-router'
+
+import { createAuthGuard } from "@auth0/auth0-vue";
+import Home from '../views/Home.vue'
+import Profile from '../views/Profile.vue'
+import Search from '../views/Search.vue'
+import Plant from '../views/Plant.vue'
+import Favorites from '../views/Favorites.vue'
+import Auth from '../views/Auth.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'films',
-      component: Films
+      name: 'home',
+      component: Home
     },
     {
-      path: '/detail-film/:id',
-      name: 'detailFilm',
-      component: DetailFilm,
-      beforeEnter: AuthGuard
-    },
-    {
-      path: '/favorite',
-      name: 'favorite',
-      component: Favorite,
-      beforeEnter: AuthGuard
-    },
-    {
-      path: '/Profile',
+      path: '/profile',
       name: 'profile',
       component: Profile,
-      beforeEnter: AuthGuard
-    }
+      beforeEnter: createAuthGuard(app)
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: Search,
+      beforeEnter: createAuthGuard(app)
+    },
+    {
+      path: '/plant/:plantId',
+      name: 'plant',
+      component: Plant,
+      beforeEnter: createAuthGuard(app)
+    },
+    {
+      path: '/favorites',
+      name: 'favorites',
+      component: Favorites,
+      beforeEnter: createAuthGuard(app)
+    },
+    {
+      path: '/auth',
+      name: 'auth',
+      component: Auth,
+      beforeEnter: createAuthGuard(app)
+    },
   ]
-});
+})
 
 export default router
