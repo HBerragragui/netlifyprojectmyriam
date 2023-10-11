@@ -17,7 +17,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
 </script>
 
-<style lang="scss">
+<style>
     .v-container{
         max-width:1200px !important;
         margin:0 auto;
